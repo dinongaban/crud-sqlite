@@ -1,16 +1,18 @@
-CREATE TABLE "tugas" (
- "id" INTEGER,
- "deskripsi" TEXT NOT NULL,
- "waktu" INTEGER NOT NULL,
- PRIMARY KEY("id" AUTOINCREMENT)
-);
+<?php
+...
 
-INSERT INTO "tugas" ("deskripsi", "waktu") VALUES
-('makan pagi', 60),
-('kuliah', 360),
-('latihan bulu tangkis', 60),
-('olah raga', 150),
-('jalan-jalan', 100),
-('berenang', 60),
-('tidur', 480);
+$deskripsi = 'Tidur siang';
+$waktu = 90;
+$sql = 'INSERT INTO tugas(deskripsi, waktu) VALUES(:deskripsi, :waktu)';
+
+$statement = $conn->prepare($sql);
+
+$statement->execute([
+ ':deskripsi' => $deskripsi,
+ ':waktu' => $waktu
+]);
+
+$tugas_id = $conn->lastInsertId();
+
+... // lakkan redirect di sini
 
